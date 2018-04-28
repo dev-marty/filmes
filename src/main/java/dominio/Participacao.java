@@ -25,6 +25,7 @@ public class Participacao implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="filme")
 	private Filme filme;
+	
 	@ManyToOne
 	@JoinColumn(name="artista")
 	private Artista artista;
