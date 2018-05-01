@@ -15,9 +15,14 @@ public class ArtistaServico {
 		dao = DaoFactory.criarArtistaDao();
 	}
 
-	public void inserirAtualizar(Artista x) {
+	public void inserirAtualizar(Artista x) throws ServicoException {
 		// MÉTODO ESPECIFICO DO JPA - EM.getLocalEm().getTransaction().begin();
 		try {
+			Artista aux = dao.buscaNomeExato(x.getNome());
+			if(aux != null){
+				throw new ServicoException("Já existe um artista com este nome!", 1);
+			}
+			
 			Transaction.begin();
 			dao.inserirAtualizar(x);
 			Transaction.commit();
@@ -53,6 +58,10 @@ public class ArtistaServico {
 
 	public List<Artista> buscarTodos() {
 		return dao.buscarTodos();
+	}
+	
+	public List<Artista> buscarTodosOrdenadosPorNome(){
+		return dao.buscarTodosOrdenadosPorNome();
 	}
 
 }
